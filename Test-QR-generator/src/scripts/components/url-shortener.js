@@ -1,7 +1,9 @@
-// URL shortening functionality (mock service initially)
+// URL shortening functionality using TinyURL API
+import { API_CONFIG } from '../config/api-config.js';
+
 export class URLShortener {
   constructor() {
-    this.baseURL = 'https://short.ly';
+    this.config = API_CONFIG.TINYURL;
     this.cache = new Map();
   }
 
@@ -16,12 +18,31 @@ export class URLShortener {
         };
       }
 
-      // Mock URL shortening service
-      const shortCode = this.generateShortCode();
-      const shortURL = `${this.baseURL}/${shortCode}`;
+      // Call TinyURL API
+      const response = await fetch(`${this.config.BASE_URL}${this.config.ENDPOINTS.CREATE}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.config.API_TOKEN}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          url: originalURL,
+          domain: 'tinyurl.com'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`TinyURL API error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
       
-      // Simulate API delay
-      await this.delay(500);
+      if (data.errors && data.errors.length > 0) {
+        throw new Error(`TinyURL API error: ${data.errors[0].message}`);
+      }
+
+      const shortURL = data.data.tiny_url;
       
       // Cache the result
       this.cache.set(originalURL, shortURL);
@@ -30,13 +51,31 @@ export class URLShortener {
         success: true,
         shortURL: shortURL,
         originalURL: originalURL,
-        shortCode: shortCode
+        alias: data.data.alias
       };
     } catch (error) {
       console.error('URL shortening error:', error);
+      
+      // Check if it's a CORS or network error
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        return {
+          success: false,
+          error: 'Network error: Unable to connect to URL shortening service. Please check your internet connection.'
+        };
+      }
+      
+      // Check if it's a CORS error
+      if (error.message.includes('CORS')) {
+        return {
+          success: false,
+          error: 'CORS error: The URL shortening service is not accessible from this domain.'
+        };
+      }
+      
+      // For other API errors, provide a user-friendly message
       return {
         success: false,
-        error: error.message || 'Failed to shorten URL'
+        error: error.message || 'Failed to shorten URL. Please try again later.'
       };
     }
   }
@@ -54,11 +93,65 @@ export class URLShortener {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  // Method to integrate with real URL shortening service
-  async shortenWithService(originalURL, apiKey = null) {
-    // This would integrate with services like bit.ly, tinyurl, etc.
-    // For now, return mock data
-    return this.shortenURL(originalURL);
+  // Method to create custom alias (optional feature)
+  async shortenWithAlias(originalURL, alias = null) {
+    try {
+      // Check cache first
+      if (this.cache.has(originalURL)) {
+        return {
+          success: true,
+          shortURL: this.cache.get(originalURL),
+          originalURL: originalURL
+        };
+      }
+
+      const requestBody = {
+        url: originalURL,
+        domain: 'tinyurl.com'
+      };
+
+      // Add alias if provided
+      if (alias) {
+        requestBody.alias = alias;
+      }
+
+      const response = await fetch(`${this.config.BASE_URL}${this.config.ENDPOINTS.CREATE}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.config.API_TOKEN}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!response.ok) {
+        throw new Error(`TinyURL API error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.errors && data.errors.length > 0) {
+        throw new Error(`TinyURL API error: ${data.errors[0].message}`);
+      }
+
+      const shortURL = data.data.tiny_url;
+      
+      // Cache the result
+      this.cache.set(originalURL, shortURL);
+      
+      return {
+        success: true,
+        shortURL: shortURL,
+        originalURL: originalURL,
+        alias: data.data.alias
+      };
+    } catch (error) {
+      console.error('URL shortening with alias error:', error);
+      return {
+        success: false,
+        error: error.message || 'Failed to shorten URL with custom alias'
+      };
+    }
   }
 
   clearCache() {
@@ -67,5 +160,32 @@ export class URLShortener {
 
   getCachedURL(originalURL) {
     return this.cache.get(originalURL) || null;
+  }
+
+  // Test API connection
+  async testConnection() {
+    try {
+      const testURL = 'https://example.com';
+      const result = await this.shortenURL(testURL);
+      return {
+        success: result.success,
+        message: result.success ? 'TinyURL API connection successful' : result.error
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: `API connection test failed: ${error.message}`
+      };
+    }
+  }
+
+  // Get API usage info (if supported by the API)
+  getApiInfo() {
+    return {
+      service: 'TinyURL',
+      baseURL: this.config.BASE_URL,
+      hasToken: !!this.config.API_TOKEN,
+      cacheSize: this.cache.size
+    };
   }
 }

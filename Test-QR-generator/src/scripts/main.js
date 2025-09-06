@@ -106,17 +106,24 @@ class QRGeneratorApp {
         this.urlShortener.shortenURL(this.currentData.normalizedURL)
       ]);
 
-      // Check results
+      // Check QR generation result
       if (!qrResult.success) {
         throw new Error(qrResult.error || 'Failed to generate QR code');
       }
 
+      // Check URL shortening result
       if (!shortResult.success) {
-        throw new Error(shortResult.error || 'Failed to shorten URL');
+        console.warn('URL shortening failed:', shortResult.error);
+        // Continue with original URL if shortening fails
+        this.currentData.shortURL = this.currentData.normalizedURL;
+        this.currentData.shorteningFailed = true;
+        this.currentData.shorteningError = shortResult.error;
+      } else {
+        this.currentData.shortURL = shortResult.shortURL;
+        this.currentData.shorteningFailed = false;
       }
 
-      // Store results
-      this.currentData.shortURL = shortResult.shortURL;
+      // Store QR result
       this.currentData.qrDataURL = qrResult.dataURL;
 
       // Update UI
@@ -136,6 +143,15 @@ class QRGeneratorApp {
     const shortenedUrlElement = DOMHelpers.$('#shortened-url');
     if (shortenedUrlElement && this.currentData.shortURL) {
       DOMHelpers.setContent(shortenedUrlElement, this.currentData.shortURL);
+    }
+
+    // Show warning if URL shortening failed
+    if (this.currentData.shorteningFailed) {
+      const cardHeader = DOMHelpers.$('#results-section .card:nth-child(2) .card-header p');
+      if (cardHeader) {
+        DOMHelpers.setContent(cardHeader, 'Original URL (shortening service unavailable)');
+        DOMHelpers.addClass(cardHeader, 'text-amber-600');
+      }
     }
 
     // QR code is already displayed on the canvas by the QR generator
