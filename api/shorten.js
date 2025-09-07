@@ -1,6 +1,9 @@
 // Vercel serverless function for URL shortening
 import { kv } from '@vercel/kv';
 
+// Database configuration
+const DATABASE_NAME = 'link-shortening-test';
+
 // Generate random short code
 function generateShortCode(length = 7) {
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -47,7 +50,7 @@ export default async function handler(req, res) {
     }
 
     // Check if URL already exists
-    const existingCode = await kv.get(`url:${url}`);
+    const existingCode = await kv.get(`${DATABASE_NAME}:url:${url}`);
     if (existingCode) {
       return res.status(200).json({
         shortUrl: `https://qubex.it/${existingCode}`,
@@ -65,15 +68,15 @@ export default async function handler(req, res) {
       if (attempts > 10) {
         return res.status(500).json({ error: 'Unable to generate unique short code' });
       }
-    } while (await kv.get(`code:${shortCode}`));
+    } while (await kv.get(`${DATABASE_NAME}:code:${shortCode}`));
 
     // Store mappings
-    await kv.set(`code:${shortCode}`, url);
-    await kv.set(`url:${url}`, shortCode);
+    await kv.set(`${DATABASE_NAME}:code:${shortCode}`, url);
+    await kv.set(`${DATABASE_NAME}:url:${url}`, shortCode);
     
     // Set expiration (optional - 1 year).
-    await kv.expire(`code:${shortCode}`, 31536000);
-    await kv.expire(`url:${url}`, 31536000);
+    await kv.expire(`${DATABASE_NAME}:code:${shortCode}`, 31536000);
+    await kv.expire(`${DATABASE_NAME}:url:${url}`, 31536000);
 
     return res.status(200).json({
       shortUrl: `https://qubex.it/${shortCode}`,

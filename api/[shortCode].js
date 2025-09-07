@@ -1,6 +1,9 @@
 // Vercel serverless function for URL redirection
 import { kv } from '@vercel/kv';
 
+// Database configuration
+const DATABASE_NAME = 'link-shortening-test';
+
 export default async function handler(req, res) {
   const { shortCode } = req.query;
 
@@ -10,7 +13,7 @@ export default async function handler(req, res) {
 
   try {
     // Get original URL from KV store
-    const originalUrl = await kv.get(`code:${shortCode}`);
+    const originalUrl = await kv.get(`${DATABASE_NAME}:code:${shortCode}`);
 
     if (!originalUrl) {
       return res.status(404).json({ error: 'Short URL not found' });
