@@ -8,8 +8,12 @@ export class URLShortener {
 
   async shortenURL(originalURL) {
     try {
+      console.log('URLShortener: Starting shortening process for:', originalURL);
+      console.log('URLShortener: Using baseURL:', this.baseURL);
+      
       // Check cache first
       if (this.cache.has(originalURL)) {
+        console.log('URLShortener: Found cached result');
         return {
           success: true,
           shortURL: this.cache.get(originalURL),
@@ -18,6 +22,7 @@ export class URLShortener {
       }
 
       // Call custom shortening API
+      console.log('URLShortener: Making API call to:', `${this.baseURL}/api/shorten`);
       const response = await fetch(`${this.baseURL}/api/shorten`, {
         method: 'POST',
         headers: {
@@ -28,17 +33,25 @@ export class URLShortener {
         })
       });
 
+      console.log('URLShortener: Response status:', response.status);
+      console.log('URLShortener: Response ok:', response.ok);
+
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('URLShortener: API error response:', errorText);
         throw new Error(`Shortening API error: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
+      console.log('URLShortener: API response data:', data);
       
       if (data.error) {
+        console.error('URLShortener: API returned error:', data.error);
         throw new Error(data.error);
       }
 
       const shortURL = data.shortUrl;
+      console.log('URLShortener: Generated short URL:', shortURL);
       
       // Cache the result
       this.cache.set(originalURL, shortURL);

@@ -116,11 +116,8 @@ class QRGeneratorApp {
 
       // Check URL shortening result
       if (!shortResult.success) {
-        console.warn('URL shortening failed:', shortResult.error);
-        // Continue with original URL if shortening fails
-        this.currentData.shortURL = this.currentData.normalizedURL;
-        this.currentData.shorteningFailed = true;
-        this.currentData.shorteningError = shortResult.error;
+        console.error('URL shortening failed:', shortResult.error);
+        throw new Error(`URL shortening failed: ${shortResult.error}`);
       } else {
         this.currentData.shortURL = shortResult.shortURL;
         this.currentData.shorteningFailed = false;
