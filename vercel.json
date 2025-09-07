@@ -1,0 +1,20 @@
+{
+  "functions": {
+    "api/shorten.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/[shortCode].js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/([a-zA-Z0-9]{7})",
+      "destination": "/api/$1"
+    }
+  ]
+}

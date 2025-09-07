@@ -1,9 +1,7 @@
-// URL shortening functionality using TinyURL API
-import { API_CONFIG } from '../config/api-config.js';
-
+// URL shortening functionality using custom qubex.it domain
 export class URLShortener {
   constructor() {
-    this.config = API_CONFIG.TINYURL;
+    this.baseURL = 'https://qubex.it'; // Your custom domain
     this.cache = new Map();
   }
 
@@ -18,31 +16,28 @@ export class URLShortener {
         };
       }
 
-      // Call TinyURL API
-      const response = await fetch(`${this.config.BASE_URL}${this.config.ENDPOINTS.CREATE}`, {
+      // Call custom shortening API
+      const response = await fetch(`${this.baseURL}/api/shorten`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.config.API_TOKEN}`,
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
         body: JSON.stringify({
-          url: originalURL,
-          domain: 'tinyurl.com'
+          url: originalURL
         })
       });
 
       if (!response.ok) {
-        throw new Error(`TinyURL API error: ${response.status} ${response.statusText}`);
+        throw new Error(`Shortening API error: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
       
-      if (data.errors && data.errors.length > 0) {
-        throw new Error(`TinyURL API error: ${data.errors[0].message}`);
+      if (data.error) {
+        throw new Error(data.error);
       }
 
-      const shortURL = data.data.tiny_url;
+      const shortURL = data.shortUrl;
       
       // Cache the result
       this.cache.set(originalURL, shortURL);
@@ -51,7 +46,7 @@ export class URLShortener {
         success: true,
         shortURL: shortURL,
         originalURL: originalURL,
-        alias: data.data.alias
+        shortCode: data.shortCode
       };
     } catch (error) {
       console.error('URL shortening error:', error);
@@ -106,35 +101,33 @@ export class URLShortener {
       }
 
       const requestBody = {
-        url: originalURL,
-        domain: 'tinyurl.com'
+        url: originalURL
       };
 
-      // Add alias if provided
+      // Add alias if provided (for future implementation)
       if (alias) {
         requestBody.alias = alias;
       }
 
-      const response = await fetch(`${this.config.BASE_URL}${this.config.ENDPOINTS.CREATE}`, {
+      const response = await fetch(`${this.baseURL}/api/shorten`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.config.API_TOKEN}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestBody)
       });
 
       if (!response.ok) {
-        throw new Error(`TinyURL API error: ${response.status} ${response.statusText}`);
+        throw new Error(`Shortening API error: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
       
-      if (data.errors && data.errors.length > 0) {
-        throw new Error(`TinyURL API error: ${data.errors[0].message}`);
+      if (data.error) {
+        throw new Error(data.error);
       }
 
-      const shortURL = data.data.tiny_url;
+      const shortURL = data.shortUrl;
       
       // Cache the result
       this.cache.set(originalURL, shortURL);
@@ -143,7 +136,7 @@ export class URLShortener {
         success: true,
         shortURL: shortURL,
         originalURL: originalURL,
-        alias: data.data.alias
+        shortCode: data.shortCode
       };
     } catch (error) {
       console.error('URL shortening with alias error:', error);
@@ -169,7 +162,7 @@ export class URLShortener {
       const result = await this.shortenURL(testURL);
       return {
         success: result.success,
-        message: result.success ? 'TinyURL API connection successful' : result.error
+        message: result.success ? 'qubex.it API connection successful' : result.error
       };
     } catch (error) {
       return {
@@ -179,12 +172,11 @@ export class URLShortener {
     }
   }
 
-  // Get API usage info (if supported by the API)
+  // Get API usage info
   getApiInfo() {
     return {
-      service: 'TinyURL',
-      baseURL: this.config.BASE_URL,
-      hasToken: !!this.config.API_TOKEN,
+      service: 'qubex.it Custom Shortener',
+      baseURL: this.baseURL,
       cacheSize: this.cache.size
     };
   }
