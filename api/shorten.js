@@ -71,7 +71,7 @@ export default async function handler(req, res) {
     await kv.set(`code:${shortCode}`, url);
     await kv.set(`url:${url}`, shortCode);
     
-    // Set expiration (optional - 1 year)
+    // Set expiration (optional - 1 year).
     await kv.expire(`code:${shortCode}`, 31536000);
     await kv.expire(`url:${url}`, 31536000);
 
