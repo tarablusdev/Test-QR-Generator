@@ -1,12 +1,4 @@
 {
-  "functions": {
-    "api/shorten.js": {
-      "runtime": "nodejs20.x"
-    },
-    "api/[shortCode].js": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
