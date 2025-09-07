@@ -4,6 +4,7 @@ import { URLShortener } from './components/url-shortener.js';
 import { ClipboardCopy } from './components/clipboard-copy.js';
 import { PDFGenerator } from './components/pdf-generator.js';
 import { FormValidator } from './components/form-validator.js';
+import { ThemeToggle } from './components/theme-toggle.js';
 import { DOMHelpers } from './utils/dom-helpers.js';
 import { ErrorHandler } from './utils/error-handler.js';
 import { LoadingStates } from './utils/loading-states.js';
@@ -15,6 +16,7 @@ class QRGeneratorApp {
     this.clipboardCopy = new ClipboardCopy();
     this.pdfGenerator = new PDFGenerator();
     this.formValidator = new FormValidator();
+    this.themeToggle = new ThemeToggle();
     
     this.currentData = {
       originalURL: null,
@@ -27,6 +29,7 @@ class QRGeneratorApp {
   init() {
     this.setupFormValidation();
     this.attachEventListeners();
+    this.themeToggle.init();
     this.resetApplication();
   }
 
@@ -113,11 +116,8 @@ class QRGeneratorApp {
 
       // Check URL shortening result
       if (!shortResult.success) {
-        console.warn('URL shortening failed:', shortResult.error);
-        // Continue with original URL if shortening fails
-        this.currentData.shortURL = this.currentData.normalizedURL;
-        this.currentData.shorteningFailed = true;
-        this.currentData.shorteningError = shortResult.error;
+        console.error('URL shortening failed:', shortResult.error);
+        throw new Error(`URL shortening failed: ${shortResult.error}`);
       } else {
         this.currentData.shortURL = shortResult.shortURL;
         this.currentData.shorteningFailed = false;

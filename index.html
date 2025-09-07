@@ -8,14 +8,28 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link href="./src/styles/main.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200">
+    <header class="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div class="container mx-auto px-4 py-6">
-            <div class="flex items-center justify-center">
-                <h1 class="text-3xl font-bold text-gradient-primary">QR Generator</h1>
+            <div class="flex items-center justify-between">
+                <div class="flex-1 flex justify-center">
+                    <h1 class="text-3xl font-bold text-gradient-primary">QR Generator</h1>
+                </div>
+                <button 
+                    id="theme-toggle" 
+                    class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    title="Toggle dark mode"
+                >
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
             </div>
-            <p class="text-center text-gray-600 mt-2">Create QR codes and short URLs instantly</p>
+            <p class="text-center text-gray-600 dark:text-gray-300 mt-2">Create QR codes and short URLs instantly</p>
         </div>
     </header>
     
@@ -26,7 +40,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">Enter Your URL</h2>
-                    <p class="text-gray-600 text-sm mt-1">Paste or type any URL to generate a QR code and shortened link</p>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Paste or type any URL to generate a QR code and shortened link</p>
                 </div>
                 
                 <form id="url-form" class="space-y-4">
@@ -62,7 +76,7 @@
             <div id="loading-state" class="hidden">
                 <div class="card text-center">
                     <div class="loading-spinner mx-auto mb-4"></div>
-                    <p class="text-gray-600">Generating your QR code and shortened URL...</p>
+                    <p class="text-gray-600 dark:text-gray-300">Generating your QR code and shortened URL...</p>
                 </div>
             </div>
 
@@ -72,7 +86,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">QR Code</h3>
-                        <p class="text-gray-600 text-sm mt-1">Scan with any QR code reader</p>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Scan with any QR code reader</p>
                     </div>
                     
                     <div class="qr-container">
@@ -86,7 +100,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Shortened URL</h3>
-                        <p class="text-gray-600 text-sm mt-1">Easy to share and remember</p>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Easy to share and remember</p>
                     </div>
                     
                     <div class="url-result">
@@ -129,14 +143,14 @@
 
             <!-- Error Display -->
             <div id="error-section" class="hidden">
-                <div class="card border-red-200 bg-red-50">
+                <div class="card border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
                     <div class="flex items-center">
-                        <svg class="w-6 h-6 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6 text-red-600 dark:text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         <div>
-                            <h3 class="text-red-800 font-medium">Error</h3>
-                            <p id="error-message" class="text-red-700 text-sm mt-1"></p>
+                            <h3 class="text-red-800 dark:text-red-200 font-medium">Error</h3>
+                            <p id="error-message" class="text-red-700 dark:text-red-300 text-sm mt-1"></p>
                         </div>
                     </div>
                     <button id="dismiss-error-btn" class="btn-secondary mt-4">

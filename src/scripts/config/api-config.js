@@ -1,30 +1,27 @@
-// API Configuration using environment variables
+// API Configuration for custom qubex.it URL shortener
 export const API_CONFIG = {
-  TINYURL: {
-    BASE_URL: 'https://api.tinyurl.com',
-    API_TOKEN: import.meta.env.VITE_TINYURL_API_TOKEN,
+  CUSTOM_SHORTENER: {
+    BASE_URL: 'https://qubex.it',
+    DATABASE_NAME: 'link-shortening-test',
     ENDPOINTS: {
-      CREATE: '/create'
+      SHORTEN: '/api/shorten',
+      REDIRECT: '/api'
     }
   }
 };
 
-// Get API configuration with fallback for development
+// Get API configuration for custom shortener
 export const getApiConfig = () => {
   const config = {
-    TINYURL: {
-      BASE_URL: 'https://api.tinyurl.com',
-      API_TOKEN: import.meta.env.VITE_TINYURL_API_TOKEN,
+    CUSTOM_SHORTENER: {
+      BASE_URL: 'https://qubex.it',
+      DATABASE_NAME: 'link-shortening-test',
       ENDPOINTS: {
-        CREATE: '/create'
+        SHORTEN: '/api/shorten',
+        REDIRECT: '/api'
       }
     }
   };
-
-  // Warn if API token is missing
-  if (!config.TINYURL.API_TOKEN) {
-    console.warn('VITE_TINYURL_API_TOKEN environment variable is not set. URL shortening will not work.');
-  }
 
   return config;
 };
