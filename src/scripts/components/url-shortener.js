@@ -1,7 +1,8 @@
 // URL shortening functionality using custom qubex.it domain
 export class URLShortener {
   constructor() {
-    this.baseURL = 'https://qubex.it'; // Your custom domain
+    // Use Vercel dev server during development, production domain in production
+    this.baseURL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://qubex.it';
     this.cache = new Map();
   }
 

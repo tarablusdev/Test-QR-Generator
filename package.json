@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:api": "vercel dev --listen 3000",
+    "dev:full": "concurrently \"npm run dev\" \"npm run dev:api\"",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
@@ -14,6 +16,7 @@
   },
   "dependencies": {
     "@vercel/kv": "^1.0.1",
+    "concurrently": "^8.2.2",
     "jspdf": "^2.5.1",
     "qrcode": "^1.5.3",
     "terser": "^5.44.0",
