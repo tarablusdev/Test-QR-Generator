@@ -16,6 +16,7 @@
     "@vercel/kv": "^1.0.1",
     "jspdf": "^2.5.1",
     "qrcode": "^1.5.3",
+    "terser": "^5.44.0",
     "vercel": "^47.0.5"
   },
   "devDependencies": {
