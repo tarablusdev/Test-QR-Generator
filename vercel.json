@@ -1,6 +1,22 @@
 {
   "rewrites": [
     {
+      "source": "/qr",
+      "destination": "/qr/index.html"
+    },
+    {
+      "source": "/qr/",
+      "destination": "/qr/index.html"
+    },
+    {
+      "source": "/shortener",
+      "destination": "/shortener/index.html"
+    },
+    {
+      "source": "/shortener/",
+      "destination": "/shortener/index.html"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/$1"
     },

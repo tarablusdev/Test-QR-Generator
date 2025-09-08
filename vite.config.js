@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { resolve } from 'path'
 
 export default defineConfig({
   root: '.',
@@ -9,7 +10,14 @@ export default defineConfig({
     minify: 'terser',
     rollupOptions: {
       input: {
-        main: './index.html'
+        main: resolve(__dirname, 'index.html'),
+        qr: resolve(__dirname, 'qr/index.html'),
+        shortener: resolve(__dirname, 'shortener/index.html')
+      },
+      output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     }
   },
@@ -19,5 +27,6 @@ export default defineConfig({
   },
   css: {
     postcss: './postcss.config.js'
-  }
+  },
+  base: '/'
 })
