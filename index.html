@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Generator - Create QR Codes & Short URLs</title>
-    <meta name="description" content="Generate QR codes and shortened URLs instantly. Download as PDF for easy sharing and printing.">
+    <title>Qubex Tools - Free QR Generator & URL Shortener</title>
+    <meta name="description" content="Free online tools including QR code generator and URL shortener. Create QR codes, shorten links, and download as PDF - all in one place.">
+    <meta name="keywords" content="QR code generator, URL shortener, free tools, qr code, short links, PDF download">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link href="./src/styles/main.css" rel="stylesheet">
 </head>
@@ -14,7 +15,7 @@
         <div class="container mx-auto px-4 py-6">
             <div class="flex items-center justify-between">
                 <div class="flex-1 flex justify-center">
-                    <h1 class="text-3xl font-bold text-gradient-primary">QR Generator</h1>
+                    <h1 class="text-3xl font-bold text-gradient-primary">Qubex Tools</h1>
                 </div>
                 <button 
                     id="theme-toggle" 
@@ -29,136 +30,181 @@
                     </svg>
                 </button>
             </div>
-            <p class="text-center text-gray-600 dark:text-gray-300 mt-2">Create QR codes and short URLs instantly</p>
+            <p class="text-center text-gray-600 dark:text-gray-300 mt-2">Free online tools for QR codes, URL shortening, and more</p>
         </div>
     </header>
     
-    <!-- Main Application -->
-    <main class="container mx-auto px-4 py-8 max-w-4xl">
-        <div id="qr-generator-app" class="space-y-8">
-            <!-- URL Input Section -->
-            <div class="card">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                Free Online Tools
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                Generate QR codes, shorten URLs, and more. All tools are free, fast, and work directly in your browser.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tools Grid -->
+    <main class="container mx-auto px-4 py-16 max-w-6xl">
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- QR Code Generator Tool -->
+            <div class="card group hover:shadow-xl transition-shadow duration-300">
                 <div class="card-header">
-                    <h2 class="card-title">Enter Your URL</h2>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Paste or type any URL to generate a QR code and shortened link</p>
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg mr-4">
+                            <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">QR Code Generator</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Create QR codes instantly</p>
+                        </div>
+                    </div>
                 </div>
                 
-                <form id="url-form" class="space-y-4">
-                    <div>
-                        <label for="url-input" class="form-label">URL</label>
-                        <input 
-                            type="url" 
-                            id="url-input" 
-                            name="url"
-                            class="form-input" 
-                            placeholder="https://example.com/your-long-url-here"
-                            required
-                        >
-                        <div id="url-error" class="form-error hidden"></div>
-                        <div id="url-success" class="form-success hidden"></div>
+                <div class="space-y-4">
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Generate QR codes for any URL, text, or data. Download as high-quality images or PDF files for printing and sharing.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm rounded-full">Free</span>
+                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full">Instant</span>
+                        <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-sm rounded-full">PDF Export</span>
                     </div>
                     
-                    <button 
-                        type="submit" 
-                        id="generate-btn" 
-                        class="btn-primary w-full"
-                    >
-                        <span id="generate-text">Generate QR Code</span>
-                        <span id="generate-loading" class="hidden">
-                            <span class="loading-spinner mr-2"></span>
-                            Generating...
-                        </span>
-                    </button>
-                </form>
-            </div>
-
-            <!-- Loading State -->
-            <div id="loading-state" class="hidden">
-                <div class="card text-center">
-                    <div class="loading-spinner mx-auto mb-4"></div>
-                    <p class="text-gray-600 dark:text-gray-300">Generating your QR code and shortened URL...</p>
-                </div>
-            </div>
-
-            <!-- Results Section -->
-            <div id="results-section" class="hidden space-y-6">
-                <!-- QR Code Display -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">QR Code</h3>
-                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Scan with any QR code reader</p>
-                    </div>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            High-quality QR codes
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            PDF download for printing
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Works with any URL or text
+                        </li>
+                    </ul>
                     
-                    <div class="qr-container">
-                        <div id="qr-code-container">
-                            <canvas id="qr-canvas" class="qr-code"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Shortened URL Display -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Shortened URL</h3>
-                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Easy to share and remember</p>
-                    </div>
-                    
-                    <div class="url-result">
-                        <span id="shortened-url" class="url-text"></span>
-                        <div class="flex space-x-2">
-                            <button 
-                                id="copy-btn" 
-                                class="btn-copy relative"
-                                title="Copy to clipboard"
-                            >
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                                </svg>
-                                <div id="copy-feedback" class="copy-feedback">Copied!</div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button 
-                        id="download-pdf-btn" 
-                        class="btn-success flex-1 flex items-center justify-center"
-                    >
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    <a href="/qr/" class="btn-primary w-full text-center inline-block group-hover:bg-blue-700 transition-colors">
+                        Generate QR Code
+                        <svg class="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
-                        Download PDF
-                    </button>
-                    
-                    <button 
-                        id="generate-another-btn" 
-                        class="btn-secondary flex-1"
-                    >
-                        Generate Another
-                    </button>
+                    </a>
                 </div>
             </div>
 
-            <!-- Error Display -->
-            <div id="error-section" class="hidden">
-                <div class="card border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
-                    <div class="flex items-center">
-                        <svg class="w-6 h-6 text-red-600 dark:text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+            <!-- URL Shortener Tool -->
+            <div class="card group hover:shadow-xl transition-shadow duration-300">
+                <div class="card-header">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 bg-green-100 dark:bg-green-900 rounded-lg mr-4">
+                            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                            </svg>
+                        </div>
                         <div>
-                            <h3 class="text-red-800 dark:text-red-200 font-medium">Error</h3>
-                            <p id="error-message" class="text-red-700 dark:text-red-300 text-sm mt-1"></p>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">URL Shortener</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Shorten long URLs</p>
                         </div>
                     </div>
-                    <button id="dismiss-error-btn" class="btn-secondary mt-4">
-                        Try Again
-                    </button>
+                </div>
+                
+                <div class="space-y-4">
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Transform long URLs into short, shareable links. Perfect for social media, emails, and anywhere you need clean, professional links.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm rounded-full">Free</span>
+                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full">Custom Domain</span>
+                        <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-sm rounded-full">Analytics</span>
+                    </div>
+                    
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Custom qubex.it domain
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Click tracking & analytics
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            No registration required
+                        </li>
+                    </ul>
+                    
+                    <a href="/shortener/" class="btn-success w-full text-center inline-block group-hover:bg-green-700 transition-colors">
+                        Shorten URL
+                        <svg class="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
+
+        <!-- Features Section -->
+        <section class="mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Our Tools?</h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    Built with modern web technologies for speed, reliability, and ease of use.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="p-4 bg-blue-100 dark:bg-blue-900 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Lightning Fast</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Generate QR codes and shorten URLs in milliseconds with our optimized tools.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="p-4 bg-green-100 dark:bg-green-900 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Secure & Private</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Your data stays private. All processing happens in your browser - no data stored on our servers.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="p-4 bg-purple-100 dark:bg-purple-900 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Mobile Friendly</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Works perfectly on all devices - desktop, tablet, and mobile. Responsive design for any screen size.</p>
+                </div>
+            </div>
+        </section>
     </main>
     
     <!-- Footer -->
@@ -180,6 +226,6 @@
         </div>
     </footer>
     
-    <script type="module" src="./src/scripts/main.js"></script>
+    <script type="module" src="./src/scripts/home.js"></script>
 </body>
 </html>
