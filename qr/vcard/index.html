@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCard QR Code Generator - Free Contact Card QR Generator | Qubex Tools</title>
+    <meta name="description" content="Generate VCard QR codes instantly. Share your contact information easily with QR codes. Free contact card QR generator with all contact fields. Download as PDF.">
+    <meta name="keywords" content="VCard QR code generator, contact QR codes, business card QR, contact card QR generator, vCard QR generator">
+    <link rel="canonical" href="https://qubex.it/qr/vcard/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/src/styles/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-gradient-primary hover:opacity-80 transition-opacity">
+                        Qubex Tools
+                    </a>
+                    <span class="mx-3 text-gray-400">•</span>
+                    <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">VCard QR Generator</h1>
+                </div>
+                <button 
+                    id="theme-toggle" 
+                    class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    title="Toggle dark mode"
+                >
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-center text-gray-600 dark:text-gray-300 mt-2">Generate VCard QR codes to share your contact information instantly</p>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <nav class="bg-gray-100 dark:bg-gray-800 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center text-sm">
+                <a href="/" class="text-blue-600 dark:text-blue-400 hover:underline">Home</a>
+                <svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <a href="/qr/" class="text-blue-600 dark:text-blue-400 hover:underline">QR Generator</a>
+                <svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700 dark:text-gray-300">VCard QR</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Application -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <div id="vcard-qr-generator-app" class="space-y-8">
+            <!-- VCard Input Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Contact Information</h2>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Enter your contact details to generate a VCard QR code for easy sharing</p>
+                </div>
+                
+                <form id="vcard-form" class="space-y-6">
+                    <!-- Personal Information -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Personal Information</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="first-name" class="form-label">First Name *</label>
+                                <input 
+                                    type="text" 
+                                    id="first-name" 
+                                    name="firstName"
+                                    class="form-input" 
+                                    placeholder="John"
+                                    required
+                                >
+                            </div>
+                            <div>
+                                <label for="last-name" class="form-label">Last Name *</label>
+                                <input 
+                                    type="text" 
+                                    id="last-name" 
+                                    name="lastName"
+                                    class="form-input" 
+                                    placeholder="Doe"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="job-title" class="form-label">Job Title</label>
+                            <input 
+                                type="text" 
+                                id="job-title" 
+                                name="jobTitle"
+                                class="form-input" 
+                                placeholder="Software Engineer"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="company" class="form-label">Company</label>
+                            <input 
+                                type="text" 
+                                id="company" 
+                                name="company"
+                                class="form-input" 
+                                placeholder="Acme Corporation"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Contact Information</h3>
+                        
+                        <div>
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone"
+                                class="form-input" 
+                                placeholder="+1 (555) 123-4567"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="email" class="form-label">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"
+                                class="form-input" 
+                                placeholder="john.doe@example.com"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="website" class="form-label">Website</label>
+                            <input 
+                                type="url" 
+                                id="website" 
+                                name="website"
+                                class="form-input" 
+                                placeholder="https://www.example.com"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Address Information -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Address (Optional)</h3>
+                        
+                        <div>
+                            <label for="street" class="form-label">Street Address</label>
+                            <input 
+                                type="text" 
+                                id="street" 
+                                name="street"
+                                class="form-input" 
+                                placeholder="123 Main Street"
+                            >
+                        </div>
+
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label for="city" class="form-label">City</label>
+                                <input 
+                                    type="text" 
+                                    id="city" 
+                                    name="city"
+                                    class="form-input" 
+                                    placeholder="New York"
+                                >
+                            </div>
+                            <div>
+                                <label for="state" class="form-label">State/Province</label>
+                                <input 
+                                    type="text" 
+                                    id="state" 
+                                    name="state"
+                                    class="form-input" 
+                                    placeholder="NY"
+                                >
+                            </div>
+                            <div>
+                                <label for="zip" class="form-label">ZIP/Postal Code</label>
+                                <input 
+                                    type="text" 
+                                    id="zip" 
+                                    name="zip"
+                                    class="form-input" 
+                                    placeholder="10001"
+                                >
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="country" class="form-label">Country</label>
+                            <input 
+                                type="text" 
+                                id="country" 
+                                name="country"
+                                class="form-input" 
+                                placeholder="United States"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="text-sm">
+                                <p class="text-blue-800 dark:text-blue-200 font-medium">How it works:</p>
+                                <p class="text-blue-800 dark:text-blue-100 mt-1">
+                                    People can scan your VCard QR code to instantly add your contact information to their phone's address book without manual typing.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        id="generate-vcard-btn" 
+                        class="btn-primary w-full"
+                    >
+                        <span id="generate-vcard-text">Generate VCard QR Code</span>
+                        <span id="generate-vcard-loading" class="hidden">
+                            <span class="loading-spinner mr-2"></span>
+                            Generating...
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="hidden">
+                <div class="card text-center">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-300">Generating your VCard QR code...</p>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="hidden space-y-6">
+                <!-- QR Code Display -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">VCard QR Code</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Scan with any smartphone camera to save contact information</p>
+                    </div>
+                    
+                    <div class="qr-container">
+                        <div id="qr-code-container">
+                            <canvas id="qr-canvas" class="qr-code"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Preview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Contact Preview</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Information encoded in your VCard QR code</p>
+                    </div>
+                    
+                    <div id="contact-preview" class="space-y-3">
+                        <!-- Contact details will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button 
+                        id="download-pdf-btn" 
+                        class="btn-success flex-1 flex items-center justify-center"
+                    >
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Download PDF
+                    </button>
+                    
+                    <button 
+                        id="generate-another-btn" 
+                        class="btn-secondary flex-1"
+                    >
+                        Generate Another
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div id="error-section" class="hidden">
+                <div class="card border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-red-600 dark:text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-red-800 dark:text-red-200 font-medium">Error</h3>
+                            <p id="error-message" class="text-red-700 dark:text-red-300 text-sm mt-1"></p>
+                        </div>
+                    </div>
+                    <button id="dismiss-error-btn" class="btn-secondary mt-4">
+                        Try Again
+                    </button>
+                </div>
+            </div>
+
+            <!-- VCard Guide -->
+            <div class="card bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 border-purple-200 dark:border-gray-700">
+                <div class="card-header">
+                    <h3 class="card-title text-purple-900 dark:text-purple-100">How to Use VCard QR Codes</h3>
+                    <p class="text-purple-800 dark:text-purple-200 text-sm mt-2">Share your contact information effortlessly</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4">For Business Cards</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Print QR code on business cards for instant contact sharing</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Recipients scan to save all your details automatically</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">No manual typing required - reduces errors</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4">For Digital Sharing</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Share via email, social media, or messaging apps</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Perfect for email signatures and online profiles</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Works on all smartphones with camera apps</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Tools -->
+            <div class="card bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+                <div class="card-header">
+                    <h3 class="card-title text-blue-900 dark:text-blue-100">Try Our Other QR Tools</h3>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="/qr/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                        URL QR Generator
+                    </a>
+                    <a href="/qr/wifi/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
+                        </svg>
+                        WiFi QR Generator
+                    </a>
+                    <a href="/shortener/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                        URL Shortener
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold mb-4">VCard QR Code Generator</h3>
+                <p class="text-gray-400 text-sm mb-4">
+                    Free VCard QR code generator for business cards and contact sharing. No registration required.
+                </p>
+                <div class="flex justify-center space-x-6 text-sm text-gray-400">
+                    <span>All contact fields supported</span>
+                    <span>•</span>
+                    <span>PDF download available</span>
+                    <span>•</span>
+                    <span>Mobile friendly</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script type="module" src="/src/scripts/vcard-main.js"></script>
+</body>
+</html>
