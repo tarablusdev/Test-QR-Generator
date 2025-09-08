@@ -120,7 +120,7 @@
                             </svg>
                             <div class="text-sm">
                                 <p class="text-blue-800 dark:text-blue-200 font-medium">How it works:</p>
-                                <p class="text-blue-700 dark:text-blue-300 mt-1">
+                                <p class="text-blue-800 dark:text-blue-100 mt-1">
                                     Guests can scan the QR code with their phone camera to automatically connect to your WiFi network without typing the password.
                                 </p>
                             </div>
@@ -228,40 +228,94 @@
             </div>
 
             <!-- WiFi QR Code Guide -->
-            <div class="card bg-gray-50 dark:bg-gray-800/50">
+            <div class="card bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 border-blue-200 dark:border-gray-700">
                 <div class="card-header">
-                    <h3 class="card-title">How to Use WiFi QR Codes</h3>
+                    <h3 class="card-title text-blue-900 dark:text-blue-100">How to Use WiFi QR Codes</h3>
+                    <p class="text-blue-800 dark:text-blue-200 text-sm mt-2">Follow these simple steps to connect your devices automatically</p>
                 </div>
-                <div class="prose prose-sm max-w-none text-gray-600 dark:text-gray-300">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">For Android Devices:</h4>
-                            <ol class="list-decimal list-inside space-y-1 text-sm">
-                                <li>Open the Camera app</li>
-                                <li>Point camera at the QR code</li>
-                                <li>Tap the WiFi notification that appears</li>
-                                <li>Confirm connection to join the network</li>
-                            </ol>
+                <div class="space-y-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mr-4">
+                                    <svg class="w-7 h-7 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M17.6,11.48 L19.44,8.3 C20.53,9.25 21.44,10.34 22.12,11.58 L20.28,14.76 C19.77,13.90 19.16,13.12 18.47,12.41 L17.6,11.48 M14.5,17.59 C16.29,16.09 17.93,14.4 19.44,12.6 L21.28,15.78 C19.77,17.58 18.14,19.27 16.36,20.78 L14.5,17.59 M9.5,17.59 L7.64,20.78 C5.86,19.27 4.23,17.58 2.72,15.78 L4.56,12.6 C6.07,14.4 7.71,16.09 9.5,17.59 M6.4,11.48 L5.53,12.41 C4.84,13.12 4.23,13.90 3.72,14.76 L1.88,11.58 C2.56,10.34 3.47,9.25 4.56,8.3 L6.4,11.48 M12,2 C13.75,2 15.6,3.8 17.11,6.78 L15.27,9.96 C14.22,8.04 13.06,6.5 12,6.5 C10.94,6.5 9.78,8.04 8.73,9.96 L6.89,6.78 C8.4,3.8 10.25,2 12,2 Z"/>
+                                    </svg>
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-900 dark:text-white">Android Devices</h4>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Open the Camera app</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Use your device's built-in camera application</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Point camera at the QR code</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Hold steady and ensure the QR code is clearly visible</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Tap the WiFi notification</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">A notification will appear at the top of your screen</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Confirm connection</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Tap to join the network automatically</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">For iPhone/iPad:</h4>
-                            <ol class="list-decimal list-inside space-y-1 text-sm">
-                                <li>Open the Camera app</li>
-                                <li>Point camera at the QR code</li>
-                                <li>Tap "Join [Network Name]" notification</li>
-                                <li>Device connects automatically</li>
-                            </ol>
+                        
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center mr-4">
+                                    <svg class="w-7 h-7 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+                                    </svg>
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-900 dark:text-white">iPhone/iPad</h4>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Open the Camera app</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Use your device's built-in camera application</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Point camera at the QR code</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Hold steady and ensure the QR code is clearly visible</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Tap "Join [Network Name]"</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">A notification banner will appear at the top</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Device connects automatically</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">No additional steps required</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-                        <h4 class="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Security Tips:</h4>
-                        <ul class="list-disc list-inside space-y-1 text-sm text-yellow-700 dark:text-yellow-300">
-                            <li>Only share WiFi QR codes with trusted guests</li>
-                            <li>Consider creating a guest network for visitors</li>
-                            <li>Use WPA3 security when available for maximum protection</li>
-                            <li>Regularly update your WiFi password for security</li>
-                        </ul>
                     </div>
                 </div>
             </div>
