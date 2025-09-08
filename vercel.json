@@ -9,6 +9,14 @@
       "destination": "/qr/index.html"
     },
     {
+      "source": "/qr/wifi",
+      "destination": "/qr/wifi/index.html"
+    },
+    {
+      "source": "/qr/wifi/",
+      "destination": "/qr/wifi/index.html"
+    },
+    {
       "source": "/shortener",
       "destination": "/shortener/index.html"
     },

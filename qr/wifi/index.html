@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi QR Code Generator - Free WiFi QR Generator | Qubex Tools</title>
+    <meta name="description" content="Generate WiFi QR codes instantly. Share your WiFi network easily with QR codes. Free WiFi QR generator with WPA, WPA2, WPA3 support. Download as PDF.">
+    <meta name="keywords" content="WiFi QR code generator, WiFi QR codes, share WiFi password, WiFi QR generator, wireless network QR code">
+    <link rel="canonical" href="https://qubex.it/qr/wifi/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/src/styles/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-gradient-primary hover:opacity-80 transition-opacity">
+                        Qubex Tools
+                    </a>
+                    <span class="mx-3 text-gray-400">•</span>
+                    <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">WiFi QR Generator</h1>
+                </div>
+                <button 
+                    id="theme-toggle" 
+                    class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    title="Toggle dark mode"
+                >
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-center text-gray-600 dark:text-gray-300 mt-2">Generate WiFi QR codes to share your network instantly</p>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <nav class="bg-gray-100 dark:bg-gray-800 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center text-sm">
+                <a href="/" class="text-blue-600 dark:text-blue-400 hover:underline">Home</a>
+                <svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <a href="/qr/" class="text-blue-600 dark:text-blue-400 hover:underline">QR Generator</a>
+                <svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700 dark:text-gray-300">WiFi QR</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Application -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <div id="wifi-qr-generator-app" class="space-y-8">
+            <!-- WiFi Input Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">WiFi Network Details</h2>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Enter your WiFi network information to generate a QR code for easy sharing</p>
+                </div>
+                
+                <form id="wifi-form" class="space-y-4">
+                    <div>
+                        <label for="ssid-input" class="form-label">Network Name (SSID) *</label>
+                        <input 
+                            type="text" 
+                            id="ssid-input" 
+                            name="ssid"
+                            class="form-input" 
+                            placeholder="My WiFi Network"
+                            required
+                        >
+                        <div id="ssid-error" class="form-error hidden"></div>
+                    </div>
+
+                    <div>
+                        <label for="password-input" class="form-label">Password</label>
+                        <input 
+                            type="password" 
+                            id="password-input" 
+                            name="password"
+                            class="form-input" 
+                            placeholder="Enter WiFi password (leave empty for open network)"
+                        >
+                        <div class="flex items-center mt-2">
+                            <input type="checkbox" id="show-password" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <label for="show-password" class="ml-2 text-sm text-gray-600 dark:text-gray-300">Show password</label>
+                        </div>
+                        <div id="password-error" class="form-error hidden"></div>
+                    </div>
+
+                    <div>
+                        <label for="security-select" class="form-label">Security Type</label>
+                        <select 
+                            id="security-select" 
+                            name="security"
+                            class="form-input"
+                        >
+                            <option value="WPA">WPA/WPA2 (Recommended)</option>
+                            <option value="WPA3">WPA3 (Most Secure)</option>
+                            <option value="WEP">WEP (Legacy)</option>
+                            <option value="nopass">Open Network (No Password)</option>
+                        </select>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            WPA/WPA2 is the most common security type. Choose "Open Network" for public WiFi without passwords.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="text-sm">
+                                <p class="text-blue-800 dark:text-blue-200 font-medium">How it works:</p>
+                                <p class="text-blue-700 dark:text-blue-300 mt-1">
+                                    Guests can scan the QR code with their phone camera to automatically connect to your WiFi network without typing the password.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        id="generate-wifi-btn" 
+                        class="btn-primary w-full"
+                    >
+                        <span id="generate-wifi-text">Generate WiFi QR Code</span>
+                        <span id="generate-wifi-loading" class="hidden">
+                            <span class="loading-spinner mr-2"></span>
+                            Generating...
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="hidden">
+                <div class="card text-center">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-300">Generating your WiFi QR code...</p>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="hidden space-y-6">
+                <!-- QR Code Display -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">WiFi QR Code</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Scan with any smartphone camera to connect automatically</p>
+                    </div>
+                    
+                    <div class="qr-container">
+                        <div id="qr-code-container">
+                            <canvas id="qr-canvas" class="qr-code"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Network Info Display -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Network Information</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Details encoded in your WiFi QR code</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                            <span class="text-gray-600 dark:text-gray-300 font-medium">Network Name:</span>
+                            <span id="display-ssid" class="text-gray-900 dark:text-gray-100 font-mono"></span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                            <span class="text-gray-600 dark:text-gray-300 font-medium">Security:</span>
+                            <span id="display-security" class="text-gray-900 dark:text-gray-100"></span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="text-gray-600 dark:text-gray-300 font-medium">Password:</span>
+                            <span id="display-password" class="text-gray-900 dark:text-gray-100 font-mono"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button 
+                        id="download-pdf-btn" 
+                        class="btn-success flex-1 flex items-center justify-center"
+                    >
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Download PDF
+                    </button>
+                    
+                    <button 
+                        id="generate-another-btn" 
+                        class="btn-secondary flex-1"
+                    >
+                        Generate Another
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div id="error-section" class="hidden">
+                <div class="card border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-red-600 dark:text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-red-800 dark:text-red-200 font-medium">Error</h3>
+                            <p id="error-message" class="text-red-700 dark:text-red-300 text-sm mt-1"></p>
+                        </div>
+                    </div>
+                    <button id="dismiss-error-btn" class="btn-secondary mt-4">
+                        Try Again
+                    </button>
+                </div>
+            </div>
+
+            <!-- WiFi QR Code Guide -->
+            <div class="card bg-gray-50 dark:bg-gray-800/50">
+                <div class="card-header">
+                    <h3 class="card-title">How to Use WiFi QR Codes</h3>
+                </div>
+                <div class="prose prose-sm max-w-none text-gray-600 dark:text-gray-300">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">For Android Devices:</h4>
+                            <ol class="list-decimal list-inside space-y-1 text-sm">
+                                <li>Open the Camera app</li>
+                                <li>Point camera at the QR code</li>
+                                <li>Tap the WiFi notification that appears</li>
+                                <li>Confirm connection to join the network</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">For iPhone/iPad:</h4>
+                            <ol class="list-decimal list-inside space-y-1 text-sm">
+                                <li>Open the Camera app</li>
+                                <li>Point camera at the QR code</li>
+                                <li>Tap "Join [Network Name]" notification</li>
+                                <li>Device connects automatically</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                        <h4 class="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Security Tips:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-yellow-700 dark:text-yellow-300">
+                            <li>Only share WiFi QR codes with trusted guests</li>
+                            <li>Consider creating a guest network for visitors</li>
+                            <li>Use WPA3 security when available for maximum protection</li>
+                            <li>Regularly update your WiFi password for security</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Tools -->
+            <div class="card bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+                <div class="card-header">
+                    <h3 class="card-title text-blue-900 dark:text-blue-100">Try Our Other QR Tools</h3>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="/qr/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                        URL QR Generator
+                    </a>
+                    <a href="/shortener/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                        URL Shortener
+                    </a>
+                    <a href="/" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                        </svg>
+                        All Tools
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold mb-4">WiFi QR Code Generator</h3>
+                <p class="text-gray-400 text-sm mb-4">
+                    Free WiFi QR code generator with support for all security types. Share your network instantly.
+                </p>
+                <div class="flex justify-center space-x-6 text-sm text-gray-400">
+                    <span>No registration required</span>
+                    <span>•</span>
+                    <span>All security types supported</span>
+                    <span>•</span>
+                    <span>Mobile friendly</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script type="module" src="/src/scripts/wifi-main.js"></script>
+</body>
+</html>
