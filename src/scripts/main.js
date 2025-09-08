@@ -103,28 +103,17 @@ class QRGeneratorApp {
       LoadingStates.showLoading();
       LoadingStates.showButtonLoading('#generate-btn');
 
-      // Generate QR code and shorten URL in parallel
-      const [qrResult, shortResult] = await Promise.all([
-        this.qrGenerator.generateQR(this.currentData.normalizedURL),
-        this.urlShortener.shortenURL(this.currentData.normalizedURL)
-      ]);
+      // Generate QR code only
+      const qrResult = await this.qrGenerator.generateQR(this.currentData.normalizedURL);
 
       // Check QR generation result
       if (!qrResult.success) {
         throw new Error(qrResult.error || 'Failed to generate QR code');
       }
 
-      // Check URL shortening result
-      if (!shortResult.success) {
-        console.error('URL shortening failed:', shortResult.error);
-        throw new Error(`URL shortening failed: ${shortResult.error}`);
-      } else {
-        this.currentData.shortURL = shortResult.shortURL;
-        this.currentData.shorteningFailed = false;
-      }
-
-      // Store QR result
+      // Store QR result and use original URL for display
       this.currentData.qrDataURL = qrResult.dataURL;
+      this.currentData.shortURL = this.currentData.normalizedURL;
 
       // Update UI
       this.displayResults();
@@ -139,19 +128,21 @@ class QRGeneratorApp {
   }
 
   displayResults() {
-    // Display shortened URL
+    // Display original URL (no shortening in QR generator)
     const shortenedUrlElement = DOMHelpers.$('#shortened-url');
     if (shortenedUrlElement && this.currentData.shortURL) {
       DOMHelpers.setContent(shortenedUrlElement, this.currentData.shortURL);
     }
 
-    // Show warning if URL shortening failed
-    if (this.currentData.shorteningFailed) {
-      const cardHeader = DOMHelpers.$('#results-section .card:nth-child(2) .card-header p');
-      if (cardHeader) {
-        DOMHelpers.setContent(cardHeader, 'Original URL (shortening service unavailable)');
-        DOMHelpers.addClass(cardHeader, 'text-amber-600');
-      }
+    // Update the card header to reflect that this is the original URL
+    const cardHeader = DOMHelpers.$('#results-section .card:nth-child(2) .card-header h3');
+    if (cardHeader) {
+      DOMHelpers.setContent(cardHeader, 'Original URL');
+    }
+    
+    const cardDescription = DOMHelpers.$('#results-section .card:nth-child(2) .card-header p');
+    if (cardDescription) {
+      DOMHelpers.setContent(cardDescription, 'The URL encoded in your QR code');
     }
 
     // QR code is already displayed on the canvas by the QR generator
