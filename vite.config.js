@@ -19,7 +19,8 @@ export default defineConfig({
         vcard: resolve(__dirname, 'qr/vcard/index.html'),
         event: resolve(__dirname, 'qr/event/index.html'),
         location: resolve(__dirname, 'qr/location/index.html'),
-        phone: resolve(__dirname, 'qr/phone/index.html')
+        phone: resolve(__dirname, 'qr/phone/index.html'),
+        text: resolve(__dirname, 'qr/text/index.html')
       },
       output: {
         entryFileNames: 'assets/[name]-[hash].js',

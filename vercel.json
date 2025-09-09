@@ -65,6 +65,14 @@
       "destination": "/qr/phone/index.html"
     },
     {
+      "source": "/qr/text",
+      "destination": "/qr/text/index.html"
+    },
+    {
+      "source": "/qr/text/",
+      "destination": "/qr/text/index.html"
+    },
+    {
       "source": "/shortener",
       "destination": "/shortener/index.html"
     },
