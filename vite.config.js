@@ -18,7 +18,8 @@ export default defineConfig({
         wifi: resolve(__dirname, 'qr/wifi/index.html'),
         vcard: resolve(__dirname, 'qr/vcard/index.html'),
         event: resolve(__dirname, 'qr/event/index.html'),
-        location: resolve(__dirname, 'qr/location/index.html')
+        location: resolve(__dirname, 'qr/location/index.html'),
+        phone: resolve(__dirname, 'qr/phone/index.html')
       },
       output: {
         entryFileNames: 'assets/[name]-[hash].js',

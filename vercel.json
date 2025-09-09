@@ -57,6 +57,14 @@
       "destination": "/qr/email/index.html"
     },
     {
+      "source": "/qr/phone",
+      "destination": "/qr/phone/index.html"
+    },
+    {
+      "source": "/qr/phone/",
+      "destination": "/qr/phone/index.html"
+    },
+    {
       "source": "/shortener",
       "destination": "/shortener/index.html"
     },
