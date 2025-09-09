@@ -73,6 +73,14 @@
       "destination": "/qr/text/index.html"
     },
     {
+      "source": "/qr/payment",
+      "destination": "/qr/payment/index.html"
+    },
+    {
+      "source": "/qr/payment/",
+      "destination": "/qr/payment/index.html"
+    },
+    {
       "source": "/shortener",
       "destination": "/shortener/index.html"
     },
