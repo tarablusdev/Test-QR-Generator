@@ -17,6 +17,22 @@
       "destination": "/qr/wifi/index.html"
     },
     {
+      "source": "/qr/vcard",
+      "destination": "/qr/vcard/index.html"
+    },
+    {
+      "source": "/qr/vcard/",
+      "destination": "/qr/vcard/index.html"
+    },
+    {
+      "source": "/qr/event",
+      "destination": "/qr/event/index.html"
+    },
+    {
+      "source": "/qr/event/",
+      "destination": "/qr/event/index.html"
+    },
+    {
       "source": "/shortener",
       "destination": "/shortener/index.html"
     },
