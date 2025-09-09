@@ -49,6 +49,14 @@
       "destination": "/qr/sms/index.html"
     },
     {
+      "source": "/qr/email",
+      "destination": "/qr/email/index.html"
+    },
+    {
+      "source": "/qr/email/",
+      "destination": "/qr/email/index.html"
+    },
+    {
       "source": "/shortener",
       "destination": "/shortener/index.html"
     },
