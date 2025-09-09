@@ -150,6 +150,19 @@ You can add Google Analytics or other tracking to monitor link clicks.
 - KV database automatically handles cleanup
 - No server maintenance required (serverless)
 
+## QR Code Types Available
+
+The platform now includes multiple specialized QR code generators:
+
+1. **URL QR Codes** (`/qr/`) - Standard URL to QR code conversion
+2. **WiFi QR Codes** (`/qr/wifi/`) - WiFi network sharing with SSID, password, and security type
+3. **vCard QR Codes** (`/qr/vcard/`) - Contact information sharing
+4. **Event QR Codes** (`/qr/event/`) - Calendar event sharing with iCalendar format
+5. **SMS QR Codes** (`/qr/sms/`) - Pre-filled SMS messages with phone number and message
+6. **Geolocation QR Codes** (`/qr/location/`) - GPS coordinates sharing
+
+Each QR type follows the same deployment pattern and uses the established JavaScript module structure.
+
 ## Next Steps
 
 1. **Custom Analytics**: Add click tracking
@@ -157,6 +170,7 @@ You can add Google Analytics or other tracking to monitor link clicks.
 3. **Custom Aliases**: Allow users to choose custom short codes
 4. **Expiration**: Add TTL for links
 5. **Admin Panel**: Manage and view all shortened links
+6. **Additional QR Types**: Email, Phone, Text, App Store links, Payment QR codes
 
 ## Support
 

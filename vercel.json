@@ -33,6 +33,14 @@
       "destination": "/qr/event/index.html"
     },
     {
+      "source": "/qr/sms",
+      "destination": "/qr/sms/index.html"
+    },
+    {
+      "source": "/qr/sms/",
+      "destination": "/qr/sms/index.html"
+    },
+    {
       "source": "/shortener",
       "destination": "/shortener/index.html"
     },

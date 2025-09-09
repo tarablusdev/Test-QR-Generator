@@ -13,6 +13,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         qr: resolve(__dirname, 'qr/index.html'),
         shortener: resolve(__dirname, 'shortener/index.html'),
+        sms: resolve(__dirname, 'qr/sms/index.html'),
         wifi: resolve(__dirname, 'qr/wifi/index.html'),
         vcard: resolve(__dirname, 'qr/vcard/index.html'),
         event: resolve(__dirname, 'qr/event/index.html')
