@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { resolve } from 'path'
 
 export default defineConfig({
   root: '.',
@@ -9,7 +10,23 @@ export default defineConfig({
     minify: 'terser',
     rollupOptions: {
       input: {
-        main: './index.html'
+        main: resolve(__dirname, 'index.html'),
+        qr: resolve(__dirname, 'qr/index.html'),
+        shortener: resolve(__dirname, 'shortener/index.html'),
+        sms: resolve(__dirname, 'qr/sms/index.html'),
+        email: resolve(__dirname, 'qr/email/index.html'),
+        wifi: resolve(__dirname, 'qr/wifi/index.html'),
+        vcard: resolve(__dirname, 'qr/vcard/index.html'),
+        event: resolve(__dirname, 'qr/event/index.html'),
+        location: resolve(__dirname, 'qr/location/index.html'),
+        phone: resolve(__dirname, 'qr/phone/index.html'),
+        text: resolve(__dirname, 'qr/text/index.html'),
+        payment: resolve(__dirname, 'qr/payment/index.html')
+      },
+      output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     }
   },
@@ -19,5 +36,6 @@ export default defineConfig({
   },
   css: {
     postcss: './postcss.config.js'
-  }
+  },
+  base: '/'
 })

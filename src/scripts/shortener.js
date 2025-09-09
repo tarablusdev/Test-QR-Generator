@@ -1,28 +1,23 @@
-// Main application entry point
-import { QRGenerator } from './components/qr-generator.js';
+// URL Shortener page functionality
 import { URLShortener } from './components/url-shortener.js';
 import { ClipboardCopy } from './components/clipboard-copy.js';
-import { PDFGenerator } from './components/pdf-generator.js';
 import { FormValidator } from './components/form-validator.js';
 import { ThemeToggle } from './components/theme-toggle.js';
 import { DOMHelpers } from './utils/dom-helpers.js';
 import { ErrorHandler } from './utils/error-handler.js';
 import { LoadingStates } from './utils/loading-states.js';
 
-class QRGeneratorApp {
+class URLShortenerApp {
   constructor() {
-    this.qrGenerator = new QRGenerator();
     this.urlShortener = new URLShortener();
     this.clipboardCopy = new ClipboardCopy();
-    this.pdfGenerator = new PDFGenerator();
     this.formValidator = new FormValidator();
     this.themeToggle = new ThemeToggle();
     
     this.currentData = {
       originalURL: null,
       normalizedURL: null,
-      shortURL: null,
-      qrDataURL: null
+      shortURL: null
     };
   }
 
@@ -39,7 +34,7 @@ class QRGeneratorApp {
 
   attachEventListeners() {
     // Form submission
-    const form = DOMHelpers.$('#url-form');
+    const form = DOMHelpers.$('#shortener-form');
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -55,18 +50,18 @@ class QRGeneratorApp {
       });
     }
 
-    // PDF download button
-    const pdfBtn = DOMHelpers.$('#download-pdf-btn');
-    if (pdfBtn) {
-      pdfBtn.addEventListener('click', () => {
-        this.handlePDFDownload();
+    // Generate QR button
+    const qrBtn = DOMHelpers.$('#generate-qr-btn');
+    if (qrBtn) {
+      qrBtn.addEventListener('click', () => {
+        this.handleGenerateQR();
       });
     }
 
-    // Generate another button
-    const generateAnotherBtn = DOMHelpers.$('#generate-another-btn');
-    if (generateAnotherBtn) {
-      generateAnotherBtn.addEventListener('click', () => {
+    // Shorten another button
+    const shortenAnotherBtn = DOMHelpers.$('#shorten-another-btn');
+    if (shortenAnotherBtn) {
+      shortenAnotherBtn.addEventListener('click', () => {
         this.resetApplication();
       });
     }
@@ -101,19 +96,18 @@ class QRGeneratorApp {
 
       // Show loading state
       LoadingStates.showLoading();
-      LoadingStates.showButtonLoading('#generate-btn');
+      LoadingStates.showButtonLoading('#shorten-btn');
 
-      // Generate QR code only
-      const qrResult = await this.qrGenerator.generateQR(this.currentData.normalizedURL);
+      // Shorten URL
+      const shortResult = await this.urlShortener.shortenURL(this.currentData.normalizedURL);
 
-      // Check QR generation result
-      if (!qrResult.success) {
-        throw new Error(qrResult.error || 'Failed to generate QR code');
+      // Check URL shortening result
+      if (!shortResult.success) {
+        console.error('URL shortening failed:', shortResult.error);
+        throw new Error(`URL shortening failed: ${shortResult.error}`);
       }
 
-      // Store QR result and use original URL for display
-      this.currentData.qrDataURL = qrResult.dataURL;
-      this.currentData.shortURL = this.currentData.normalizedURL;
+      this.currentData.shortURL = shortResult.shortURL;
 
       // Update UI
       this.displayResults();
@@ -123,29 +117,22 @@ class QRGeneratorApp {
       console.error('Form submission error:', error);
       ErrorHandler.showError(error.message || 'An unexpected error occurred');
     } finally {
-      LoadingStates.hideButtonLoading('#generate-btn');
+      LoadingStates.hideButtonLoading('#shorten-btn');
     }
   }
 
   displayResults() {
-    // Display original URL (no shortening in QR generator)
+    // Display shortened URL
     const shortenedUrlElement = DOMHelpers.$('#shortened-url');
     if (shortenedUrlElement && this.currentData.shortURL) {
       DOMHelpers.setContent(shortenedUrlElement, this.currentData.shortURL);
     }
 
-    // Update the card header to reflect that this is the original URL
-    const cardHeader = DOMHelpers.$('#results-section .card:nth-child(2) .card-header h3');
-    if (cardHeader) {
-      DOMHelpers.setContent(cardHeader, 'Original URL');
+    // Display original URL
+    const originalUrlElement = DOMHelpers.$('#original-url');
+    if (originalUrlElement && this.currentData.originalURL) {
+      DOMHelpers.setContent(originalUrlElement, this.currentData.originalURL);
     }
-    
-    const cardDescription = DOMHelpers.$('#results-section .card:nth-child(2) .card-header p');
-    if (cardDescription) {
-      DOMHelpers.setContent(cardDescription, 'The URL encoded in your QR code');
-    }
-
-    // QR code is already displayed on the canvas by the QR generator
   }
 
   async handleCopyURL() {
@@ -165,32 +152,15 @@ class QRGeneratorApp {
     }
   }
 
-  async handlePDFDownload() {
-    if (!this.currentData.qrDataURL || !this.currentData.shortURL) {
-      ErrorHandler.showError('No data available for PDF generation');
+  handleGenerateQR() {
+    if (!this.currentData.shortURL) {
+      ErrorHandler.showError('No URL available for QR generation');
       return;
     }
 
-    try {
-      LoadingStates.showButtonLoading('#download-pdf-btn');
-
-      const result = await this.pdfGenerator.downloadPDF(
-        this.currentData.qrDataURL,
-        this.currentData.shortURL,
-        this.currentData.originalURL,
-        'qr-code.pdf'
-      );
-
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to generate PDF');
-      }
-
-    } catch (error) {
-      console.error('PDF download error:', error);
-      ErrorHandler.showError(error.message || 'Failed to download PDF');
-    } finally {
-      LoadingStates.hideButtonLoading('#download-pdf-btn');
-    }
+    // Redirect to QR generator with the shortened URL
+    const qrUrl = `/qr/?url=${encodeURIComponent(this.currentData.shortURL)}`;
+    window.location.href = qrUrl;
   }
 
   resetApplication() {
@@ -202,12 +172,8 @@ class QRGeneratorApp {
     this.currentData = {
       originalURL: null,
       normalizedURL: null,
-      shortURL: null,
-      qrDataURL: null
+      shortURL: null
     };
-
-    // Clear QR code
-    this.qrGenerator.clearQR();
 
     // Reset UI states
     LoadingStates.resetAllStates();
@@ -226,27 +192,15 @@ class QRGeneratorApp {
   }
 
   isReady() {
-    return !!(this.qrGenerator && this.urlShortener && this.clipboardCopy && this.pdfGenerator);
+    return !!(this.urlShortener && this.clipboardCopy);
   }
 }
 
 // Initialize application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new QRGeneratorApp();
+  const app = new URLShortenerApp();
   app.init();
   
-  // Check for URL parameter to pre-fill the form
-  const urlParams = new URLSearchParams(window.location.search);
-  const prefilledUrl = urlParams.get('url');
-  if (prefilledUrl) {
-    const urlInput = DOMHelpers.$('#url-input');
-    if (urlInput) {
-      urlInput.value = decodeURIComponent(prefilledUrl);
-      // Trigger form validation
-      app.formValidator.validateField('#url-input');
-    }
-  }
-  
   // Make app available globally for debugging
-  window.QRGeneratorApp = app;
+  window.URLShortenerApp = app;
 });

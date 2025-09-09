@@ -1,6 +1,94 @@
 {
   "rewrites": [
     {
+      "source": "/qr",
+      "destination": "/qr/index.html"
+    },
+    {
+      "source": "/qr/",
+      "destination": "/qr/index.html"
+    },
+    {
+      "source": "/qr/wifi",
+      "destination": "/qr/wifi/index.html"
+    },
+    {
+      "source": "/qr/wifi/",
+      "destination": "/qr/wifi/index.html"
+    },
+    {
+      "source": "/qr/vcard",
+      "destination": "/qr/vcard/index.html"
+    },
+    {
+      "source": "/qr/vcard/",
+      "destination": "/qr/vcard/index.html"
+    },
+    {
+      "source": "/qr/event",
+      "destination": "/qr/event/index.html"
+    },
+    {
+      "source": "/qr/event/",
+      "destination": "/qr/event/index.html"
+    },
+    {
+      "source": "/qr/location",
+      "destination": "/qr/location/index.html"
+    },
+    {
+      "source": "/qr/location/",
+      "destination": "/qr/location/index.html"
+    },
+    {
+      "source": "/qr/sms",
+      "destination": "/qr/sms/index.html"
+    },
+    {
+      "source": "/qr/sms/",
+      "destination": "/qr/sms/index.html"
+    },
+    {
+      "source": "/qr/email",
+      "destination": "/qr/email/index.html"
+    },
+    {
+      "source": "/qr/email/",
+      "destination": "/qr/email/index.html"
+    },
+    {
+      "source": "/qr/phone",
+      "destination": "/qr/phone/index.html"
+    },
+    {
+      "source": "/qr/phone/",
+      "destination": "/qr/phone/index.html"
+    },
+    {
+      "source": "/qr/text",
+      "destination": "/qr/text/index.html"
+    },
+    {
+      "source": "/qr/text/",
+      "destination": "/qr/text/index.html"
+    },
+    {
+      "source": "/qr/payment",
+      "destination": "/qr/payment/index.html"
+    },
+    {
+      "source": "/qr/payment/",
+      "destination": "/qr/payment/index.html"
+    },
+    {
+      "source": "/shortener",
+      "destination": "/shortener/index.html"
+    },
+    {
+      "source": "/shortener/",
+      "destination": "/shortener/index.html"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/$1"
     },

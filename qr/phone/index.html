@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone QR Code Generator - Free Click-to-Call QR Generator | Qubex Tools</title>
+    <meta name="description" content="Generate phone QR codes for instant calling. Create click-to-call QR codes for business cards, customer support, and contact sharing. Free phone QR generator.">
+    <meta name="keywords" content="phone QR code generator, click to call QR codes, phone number QR, call QR generator, contact QR code, business phone QR">
+    <link rel="canonical" href="https://qubex.it/qr/phone/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/src/styles/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-gradient-primary hover:opacity-80 transition-opacity">
+                        Qubex Tools
+                    </a>
+                    <span class="mx-3 text-gray-400">•</span>
+                    <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Phone QR Generator</h1>
+                </div>
+                <button 
+                    id="theme-toggle" 
+                    class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    title="Toggle dark mode"
+                >
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-center text-gray-600 dark:text-gray-300 mt-2">Generate phone QR codes for instant click-to-call functionality</p>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <nav class="bg-gray-100 dark:bg-gray-800 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center text-sm">
+                <a href="/" class="text-blue-600 dark:text-blue-400 hover:underline">Home</a>
+                <svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <a href="/qr/" class="text-blue-600 dark:text-blue-400 hover:underline">QR Generator</a>
+                <svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700 dark:text-gray-300">Phone QR</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Application -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <div id="phone-qr-generator-app" class="space-y-8">
+            <!-- Phone Input Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Phone Number Details</h2>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Create a QR code that opens the phone dialer with your number when scanned</p>
+                </div>
+                
+                <form id="phone-form" class="space-y-4">
+                    <div>
+                        <label for="platform-select" class="form-label">Platform *</label>
+                        <select 
+                            id="platform-select" 
+                            name="platform"
+                            class="form-input"
+                        >
+                            <option value="phone">Phone Call</option>
+                            <option value="whatsapp">WhatsApp Call</option>
+                        </select>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                            Choose whether to open phone dialer or WhatsApp for calling
+                        </p>
+                        <div id="platform-error" class="form-error hidden"></div>
+                    </div>
+
+                    <div>
+                        <label for="phone-input" class="form-label">Phone Number *</label>
+                        <input 
+                            type="tel" 
+                            id="phone-input" 
+                            name="phone"
+                            class="form-input" 
+                            placeholder="+1234567890 or 1234567890"
+                            required
+                        >
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                            Include country code for international numbers (e.g., +1 for US, +44 for UK, +49 for Germany)
+                        </p>
+                        <div id="phone-error" class="form-error hidden"></div>
+                        <div id="phone-success" class="form-success hidden"></div>
+                    </div>
+
+                    <div>
+                        <label for="display-name-input" class="form-label">Display Name (Optional)</label>
+                        <input 
+                            type="text" 
+                            id="display-name-input" 
+                            name="displayName"
+                            class="form-input" 
+                            placeholder="Business Name or Contact Name"
+                            maxlength="50"
+                        >
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                            Optional name to help identify the phone number (for your reference only)
+                        </p>
+                        <div id="display-name-error" class="form-error hidden"></div>
+                    </div>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="text-sm">
+                                <p class="text-blue-800 dark:text-blue-200 font-medium">How it works:</p>
+                                <p class="text-blue-800 dark:text-blue-100 mt-1">
+                                    When someone scans the QR code, their phone will open the selected app (Phone or WhatsApp) with your number ready to call.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        id="generate-phone-btn" 
+                        class="btn-primary w-full"
+                    >
+                        <span id="generate-phone-text">Generate Phone QR Code</span>
+                        <span id="generate-phone-loading" class="hidden">
+                            <span class="loading-spinner mr-2"></span>
+                            Generating...
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="hidden">
+                <div class="card text-center">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-300">Generating your phone QR code...</p>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="hidden space-y-6">
+                <!-- QR Code Display -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Phone QR Code</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Scan with any smartphone to open phone dialer</p>
+                    </div>
+                    
+                    <div class="qr-container">
+                        <div id="qr-code-container">
+                            <canvas id="qr-canvas" class="qr-code"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Info Display -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Phone Information</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Details encoded in your phone QR code</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                            <span class="text-gray-600 dark:text-gray-300 font-medium">Platform:</span>
+                            <span id="display-platform" class="text-gray-900 dark:text-gray-100"></span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                            <span class="text-gray-600 dark:text-gray-300 font-medium">Phone Number:</span>
+                            <span id="display-phone" class="text-gray-900 dark:text-gray-100 font-mono"></span>
+                        </div>
+                        <div id="display-name-section" class="hidden">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                                <span class="text-gray-600 dark:text-gray-300 font-medium">Display Name:</span>
+                                <span id="display-name-value" class="text-gray-900 dark:text-gray-100"></span>
+                            </div>
+                        </div>
+                        <div class="py-2">
+                            <span class="text-gray-600 dark:text-gray-300 font-medium block mb-2">QR Code Format:</span>
+                            <div id="display-format" class="text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-800 p-3 rounded-lg font-mono text-sm"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button 
+                        id="download-pdf-btn" 
+                        class="btn-success flex-1 flex items-center justify-center"
+                    >
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Download PDF
+                    </button>
+                    
+                    <button 
+                        id="generate-another-btn" 
+                        class="btn-secondary flex-1"
+                    >
+                        Generate Another
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div id="error-section" class="hidden">
+                <div class="card border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-red-600 dark:text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-red-800 dark:text-red-200 font-medium">Error</h3>
+                            <p id="error-message" class="text-red-700 dark:text-red-300 text-sm mt-1"></p>
+                        </div>
+                    </div>
+                    <button id="dismiss-error-btn" class="btn-secondary mt-4">
+                        Try Again
+                    </button>
+                </div>
+            </div>
+
+            <!-- Phone QR Code Guide -->
+            <div class="card bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-900 border-emerald-200 dark:border-gray-700">
+                <div class="card-header">
+                    <h3 class="card-title text-emerald-900 dark:text-emerald-100">Phone QR Code Use Cases</h3>
+                    <p class="text-emerald-800 dark:text-emerald-200 text-sm mt-2">Perfect for instant communication and customer service</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Business Applications</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Customer support hotlines
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Business cards and marketing materials
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Restaurant reservations and orders
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Service appointment booking
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Emergency contact information
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Personal Use</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-emerald-600 dark:bg-emerald-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Share contact information easily
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-emerald-600 dark:bg-emerald-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Event networking and meetups
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-emerald-600 dark:bg-emerald-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Real estate agent contact cards
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-emerald-600 dark:bg-emerald-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Freelancer and consultant contact
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-1.5 h-1.5 bg-emerald-600 dark:bg-emerald-400 rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                                    Social media profile links
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">How to Use Phone QR Codes</h4>
+                        <div class="grid sm:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold text-lg">1</span>
+                                </div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">Scan QR Code</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Use phone camera or QR scanner app</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold text-lg">2</span>
+                                </div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">Dialer Opens</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Phone number appears in dialer app</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold text-lg">3</span>
+                                </div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">Make Call</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Tap call button to connect</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Tools -->
+            <div class="card bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+                <div class="card-header">
+                    <h3 class="card-title text-blue-900 dark:text-blue-100">Try Our Other QR Tools</h3>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="/qr/sms/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                        SMS QR
+                    </a>
+                    <a href="/qr/email/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        Email QR
+                    </a>
+                    <a href="/qr/vcard/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        Contact Card
+                    </a>
+                    <a href="/" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                        </svg>
+                        All Tools
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold mb-4">Phone QR Code Generator</h3>
+                <p class="text-gray-400 text-sm mb-4">
+                    Free phone QR code generator for instant click-to-call functionality. Perfect for business and personal use.
+                </p>
+                <div class="flex justify-center space-x-6 text-sm text-gray-400">
+                    <span>No registration required</span>
+                    <span>•</span>
+                    <span>International phone numbers</span>
+                    <span>•</span>
+                    <span>Mobile friendly</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script type="module" src="/src/scripts/phone-main.js"></script>
+</body>
+</html>
