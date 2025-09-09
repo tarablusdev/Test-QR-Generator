@@ -16,7 +16,8 @@ export default defineConfig({
         sms: resolve(__dirname, 'qr/sms/index.html'),
         wifi: resolve(__dirname, 'qr/wifi/index.html'),
         vcard: resolve(__dirname, 'qr/vcard/index.html'),
-        event: resolve(__dirname, 'qr/event/index.html')
+        event: resolve(__dirname, 'qr/event/index.html'),
+        location: resolve(__dirname, 'qr/location/index.html')
       },
       output: {
         entryFileNames: 'assets/[name]-[hash].js',

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location QR Code Generator - Google Maps Location QR Generator | Qubex Tools</title>
+    <meta name="description" content="Generate location QR codes from Google Maps URLs instantly. Share precise locations easily with QR codes. Free Google Maps QR generator with exact coordinates. Download as PDF.">
+    <meta name="keywords" content="location QR code generator, Google Maps QR codes, geolocation QR, GPS QR generator, maps QR code">
+    <link rel="canonical" href="https://qubex.it/qr/location/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/src/styles/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-gradient-primary hover:opacity-80 transition-opacity">
+                        Qubex Tools
+                    </a>
+                    <span class="mx-3 text-gray-400">•</span>
+                    <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Location QR Generator</h1>
+                </div>
+                <button 
+                    id="theme-toggle" 
+                    class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    title="Toggle dark mode"
+                >
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-center text-gray-600 dark:text-gray-300 mt-2">Generate location QR codes from Google Maps URLs for precise navigation</p>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <nav class="bg-gray-100 dark:bg-gray-800 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center text-sm">
+                <a href="/" class="text-blue-600 dark:text-blue-400 hover:underline">Home</a>
+                <svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <a href="/qr/" class="text-blue-600 dark:text-blue-400 hover:underline">QR Generator</a>
+                <svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-700 dark:text-gray-300">Location QR</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Application -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <div id="location-qr-generator-app" class="space-y-8">
+            <!-- Location Input Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Google Maps Location</h2>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Paste a Google Maps URL or share link to generate a location QR code</p>
+                </div>
+                
+                <form id="location-form" class="space-y-6">
+                    <!-- Google Maps URL Input -->
+                    <div class="space-y-4">
+                        <div>
+                            <label for="maps-url" class="form-label">Google Maps URL *</label>
+                            <input 
+                                type="url" 
+                                id="maps-url" 
+                                name="mapsUrl"
+                                class="form-input" 
+                                placeholder="https://maps.google.com/maps?q=40.7128,-74.0060 or https://goo.gl/maps/..."
+                                required
+                            >
+                            <div id="maps-url-error" class="form-error hidden"></div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                Paste any Google Maps URL - from search results, shared locations, or direct coordinates
+                            </p>
+                        </div>
+
+                        <div>
+                            <label for="location-label" class="form-label">Location Label (Optional)</label>
+                            <input 
+                                type="text" 
+                                id="location-label" 
+                                name="locationLabel"
+                                class="form-input" 
+                                placeholder="e.g., Office Building, Restaurant, Meeting Point"
+                            >
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                Add a custom name for this location (will be shown in the QR preview)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="text-sm">
+                                <p class="text-blue-800 dark:text-blue-200 font-medium">How to get Google Maps URLs:</p>
+                                <ul class="text-blue-800 dark:text-blue-100 mt-1 space-y-1">
+                                    <li>• Search for a location on Google Maps and copy the URL</li>
+                                    <li>• Right-click on any point on Google Maps and select "What's here?"</li>
+                                    <li>• Use the "Share" button in Google Maps to get a short link</li>
+                                    <li>• Copy coordinates directly from Google Maps search</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        id="generate-location-btn" 
+                        class="btn-primary w-full"
+                    >
+                        <span id="generate-location-text">Generate Location QR Code</span>
+                        <span id="generate-location-loading" class="hidden">
+                            <span class="loading-spinner mr-2"></span>
+                            Generating...
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="hidden">
+                <div class="card text-center">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-300">Processing Google Maps URL and generating QR code...</p>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="hidden space-y-6">
+                <!-- QR Code Display -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Location QR Code</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Scan with any smartphone to open location in maps app</p>
+                    </div>
+                    
+                    <div class="qr-container">
+                        <div id="qr-code-container">
+                            <canvas id="qr-canvas" class="qr-code"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location Preview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Location Details</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Information encoded in your location QR code</p>
+                    </div>
+                    
+                    <div id="location-preview" class="space-y-3">
+                        <!-- Location details will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button 
+                        id="download-pdf-btn" 
+                        class="btn-success flex-1 flex items-center justify-center"
+                    >
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Download PDF
+                    </button>
+                    
+                    <button 
+                        id="generate-another-btn" 
+                        class="btn-secondary flex-1"
+                    >
+                        Generate Another
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div id="error-section" class="hidden">
+                <div class="card border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-red-600 dark:text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-red-800 dark:text-red-200 font-medium">Error</h3>
+                            <p id="error-message" class="text-red-700 dark:text-red-300 text-sm mt-1"></p>
+                        </div>
+                    </div>
+                    <button id="dismiss-error-btn" class="btn-secondary mt-4">
+                        Try Again
+                    </button>
+                </div>
+            </div>
+
+            <!-- Location QR Code Guide -->
+            <div class="card bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 border-green-200 dark:border-gray-700">
+                <div class="card-header">
+                    <h3 class="card-title text-green-900 dark:text-green-100">How to Use Location QR Codes</h3>
+                    <p class="text-green-800 dark:text-green-200 text-sm mt-2">Share precise locations and enable instant navigation</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4">For Businesses</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Add to business cards, flyers, and storefront displays</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Help customers find your exact location easily</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Perfect for delivery instructions and meeting points</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4">For Personal Use</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Share event locations with friends and family</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Create location shortcuts for frequently visited places</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Works with Google Maps, Apple Maps, and other navigation apps</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Tools -->
+            <div class="card bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+                <div class="card-header">
+                    <h3 class="card-title text-blue-900 dark:text-blue-100">Try Our Other QR Tools</h3>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="/qr/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                        URL QR Generator
+                    </a>
+                    <a href="/qr/event/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        Event QR Generator
+                    </a>
+                    <a href="/qr/sms/" class="btn-secondary text-center">
+                        <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                        SMS QR Generator
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold mb-4">Location QR Code Generator</h3>
+                <p class="text-gray-400 text-sm mb-4">
+                    Free Google Maps location QR code generator for precise navigation and location sharing. No registration required.
+                </p>
+                <div class="flex justify-center space-x-6 text-sm text-gray-400">
+                    <span>Google Maps compatible</span>
+                    <span>•</span>
+                    <span>All navigation apps supported</span>
+                    <span>•</span>
+                    <span>PDF download available</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script type="module" src="/src/scripts/location-main.js"></script>
+</body>
+</html>
