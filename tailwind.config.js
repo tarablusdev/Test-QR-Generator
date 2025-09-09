@@ -2,8 +2,11 @@
 export default {
   content: [
     "./index.html",
+    "./qr/**/*.html",
+    "./shortener/**/*.html",
     "./src/**/*.{js,html,css}",
   ],
+  mode: 'jit',
   darkMode: 'class',
   theme: {
     extend: {
@@ -29,5 +32,7 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }
